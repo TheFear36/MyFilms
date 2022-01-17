@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/coverImageView"
+        android:layout_width="@dimen/image"
+        android:layout_height="@dimen/image"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_default_film" />
+
+    <TextView
+        android:id="@+id/titleFilm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintEnd_toEndOf="@+id/coverImageView"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/coverImageView"
+        app:layout_constraintTop_toBottomOf="@+id/coverImageView"
+        tools:text="@string/title_film" />
+
+    <TextView
+        android:id="@+id/styleFilm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="@dimen/little_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/rateStar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleFilm"
+        tools:text="@string/style_film" />
+
+    <TextView
+        android:id="@+id/filmYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/coverImageView"
+        app:layout_constraintTop_toBottomOf="@+id/titleFilm"
+        tools:text="@string/year" />
+
+    <TextView
+        android:id="@+id/filmRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rateStar"
+        app:layout_constraintEnd_toEndOf="@+id/coverImageView"
+        app:layout_constraintTop_toTopOf="@+id/rateStar"
+        tools:text="@string/rate" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/rateStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_rate"
+        app:layout_constraintEnd_toStartOf="@+id/filmRate"
+        app:layout_constraintTop_toBottomOf="@+id/titleFilm" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="rateStar, filmRate"
+        app:barrierDirection="bottom" />
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="coverImageView"
+        app:barrierDirection="top" />
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="coverImageView, filmYear"
+        app:barrierDirection="start" />
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="coverImageView, filmRate"
+        app:barrierDirection="end" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MyFilms</string>
+    <string name="title_film">TITLE</string>
+    <string name="year">2020</string>
+    <string name="rate">6.9</string>
+    <string name="style_film">STYLE FILM</string>
+    <string name="errorLoading">ERROR</string>
+    <string name="reloadError">Reload</string>
+    <string name="failed_to_load_films">Ошибка при загрузке</string>
+    <string name="try_again">Попробовать снова</string>
+    <string name="no_films">Нет фильмов</string>
 </resources>
