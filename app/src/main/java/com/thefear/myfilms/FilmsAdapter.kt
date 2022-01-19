@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.thefear.myfilms.databinding.ItemFilmBinding
 import com.thefear.myfilms.model.entities.Film
+import com.thefear.myfilms.ui.screens.FilmListFragment
 
-class FilmsAdapter() : RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>(){
+class FilmsAdapter(private val itemClickListener: FilmListFragment.OnItemViewClickListener) :
+    RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>() {
 
     var films: List<Film> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
@@ -25,17 +27,17 @@ class FilmsAdapter() : RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>(){
 
     override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
         val film = films[position]
-        with(holder.binding){
+        with(holder.binding) {
             titleFilm.text = film.title
             filmYear.text = film.year
             filmRate.text = film.rate
-            styleFilm.text = film.style
+            styleFilm.text = film.style.toString()
             Glide.with(coverImageView.context)
                 .load(film.cover)
                 .placeholder(R.drawable.ic_default_film)
                 .error(R.drawable.ic_default_film)
                 .into(coverImageView)
-            //root.setOnClickListener { itemClickListener.onItemViewClick(film)}
+            root.setOnClickListener { itemClickListener.onItemViewClick(film) }
         }
     }
 
