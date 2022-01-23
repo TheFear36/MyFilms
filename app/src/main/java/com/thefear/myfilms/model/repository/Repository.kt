@@ -4,6 +4,7 @@ import com.thefear.myfilms.model.entities.Film
 
 interface Repository {
 
-    fun getMyFilms() : MutableList<Film>
-    fun getFilmsFromServer() : MutableList<Film>
+    fun getMyFilms(): MutableList<Film>
+    fun getMyFilmsFromGenre(genre: Genre): MutableList<Film>
+    fun getFilmsFromServer(): MutableList<Film>
 }

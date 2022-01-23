@@ -28,7 +28,7 @@ class FilmListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFilmListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,9 +38,7 @@ class FilmListFragment : Fragment() {
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getFilmsFromMySource()
-
-        adapter = FilmsAdapter()
+        viewModel.getFilms()
     }
 
     override fun onDestroyView() {
@@ -56,6 +54,24 @@ class FilmListFragment : Fragment() {
                 progressBar.visibility = View.GONE
                 tryAgainContainer.visibility = View.GONE
                 noUsersTextView.visibility = View.GONE
+                adapter = FilmsAdapter(object : OnItemViewClickListener {
+                    override fun onItemViewClick(film: Film) {
+                        val manager = activity?.supportFragmentManager
+                        manager?.let { _ ->
+                            val bundle = Bundle().apply {
+                                putParcelable(FilmDetailsFragment.FILM_EXTRA, film)
+                            }
+                            manager.beginTransaction()
+                                .replace(
+                                    R.id.fragmentContainer,
+                                    FilmDetailsFragment.newInstance(bundle)
+                                )
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                    }
+
+                })
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -67,7 +83,7 @@ class FilmListFragment : Fragment() {
                 tryAgainContainer.visibility = View.VISIBLE
                 noUsersTextView.visibility = View.VISIBLE
                 Snackbar.make(fragmentFilmList, R.string.errorLoading, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.reloadError) { viewModel.getFilmsFromMySource() }
+                    .setAction(R.string.reloadError) { viewModel.getFilms() }
                     .show()
             }
             is AppState.Loading -> {
@@ -81,6 +97,8 @@ class FilmListFragment : Fragment() {
     }
 
     private fun setData(filmsData: MutableList<Film>) = with(binding) {
+        viewModel.getLiveData()
+        adapter?.films = filmsData
     }
 
     interface OnItemViewClickListener {
@@ -88,9 +106,7 @@ class FilmListFragment : Fragment() {
     }
 
     companion object {
-        fun getInstance(): Fragment {
-            return FilmListFragment()
-        }
+        fun newInstance() = FilmListFragment()
     }
 
 

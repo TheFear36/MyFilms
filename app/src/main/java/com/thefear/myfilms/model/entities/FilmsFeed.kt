@@ -1,8 +1,7 @@
 package com.thefear.myfilms.model.entities
 
 import com.github.javafaker.Faker
-
-typealias FilmsListener = (films: List<Film>) -> Unit
+import com.thefear.myfilms.model.repository.Genre
 
 class FilmsFeed {
 
@@ -45,10 +44,11 @@ class FilmsFeed {
         )
 
         private val STYLES = mutableListOf(
-            "COMEDY",
-            "ACTION",
-            "CARTOON",
-            "THRILLER"
+            Genre.ACTION,
+            Genre.CARTOON,
+            Genre.COMEDY,
+            Genre.THRILLER,
         )
     }
+
 }

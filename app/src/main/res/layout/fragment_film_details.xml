@@ -19,11 +19,11 @@
 
             <ImageView
                 android:id="@+id/coverImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/details_image_size"
+                android:layout_height="@dimen/details_image_size"
                 android:layout_marginTop="16dp"
                 tools:src="@drawable/ic_default_film"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/image_cover_desc" />
 
             <TextView
                 android:id="@+id/titleFilm"
