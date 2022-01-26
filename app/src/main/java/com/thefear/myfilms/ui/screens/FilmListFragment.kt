@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.thefear.myfilms.FilmsAdapter
-import com.thefear.myfilms.R
+import com.thefear.myfilms.*
 import com.thefear.myfilms.ui.FilmsListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.thefear.myfilms.databinding.FragmentFilmListBinding
@@ -50,10 +49,10 @@ class FilmListFragment : Fragment() {
         when (appState) {
             is AppState.Success -> {
                 val filmsData = appState.filmsData
-                recyclerView.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
-                tryAgainContainer.visibility = View.GONE
-                noUsersTextView.visibility = View.GONE
+                recyclerView.show()
+                progressBar.hide()
+                tryAgainContainer.hide()
+                noUsersTextView.hide()
                 adapter = FilmsAdapter(object : OnItemViewClickListener {
                     override fun onItemViewClick(film: Film) {
                         val manager = activity?.supportFragmentManager
@@ -78,19 +77,23 @@ class FilmListFragment : Fragment() {
                 setData(filmsData)
             }
             is AppState.Error -> {
-                recyclerView.visibility = View.GONE
-                progressBar.visibility = View.GONE
-                tryAgainContainer.visibility = View.VISIBLE
-                noUsersTextView.visibility = View.VISIBLE
-                Snackbar.make(fragmentFilmList, R.string.errorLoading, Snackbar.LENGTH_INDEFINITE)
+                recyclerView.hide()
+                progressBar.hide()
+                tryAgainContainer.show()
+                noUsersTextView.show()
+                fragmentFilmList.snack(R.string.errorLoading.toString(),
+                    R.string.reloadError.toString(),
+                    viewModel.getFilms())
+
+/*                Snackbar.make(fragmentFilmList, R.string.errorLoading, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.reloadError) { viewModel.getFilms() }
-                    .show()
+                    .show()*/
             }
             is AppState.Loading -> {
-                recyclerView.visibility = View.GONE
-                progressBar.visibility = View.VISIBLE
-                tryAgainContainer.visibility = View.GONE
-                noUsersTextView.visibility = View.GONE
+                recyclerView.hide()
+                progressBar.show()
+                tryAgainContainer.hide()
+                noUsersTextView.hide()
             }
         }
 

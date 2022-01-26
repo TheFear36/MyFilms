@@ -9,4 +9,6 @@
     <string name="failed_to_load_films">Ошибка при загрузке</string>
     <string name="try_again">Попробовать снова</string>
     <string name="no_films">Нет фильмов</string>
+    <string name="todo">TODO</string>
+    <string name="image_cover_desc">Cover</string>
 </resources>
