@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.thefear.myfilms.*
-import com.thefear.myfilms.ui.FilmsListViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.thefear.myfilms.databinding.FragmentFilmListBinding
 import com.thefear.myfilms.model.AppState
 import com.thefear.myfilms.model.entities.Film
+import com.thefear.myfilms.ui.FilmsListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
 
@@ -37,7 +36,8 @@ class FilmListFragment : Fragment() {
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getFilms()
+        //viewModel.getFilms()
+        viewModel.getServerFilms()
     }
 
     override fun onDestroyView() {
@@ -81,9 +81,11 @@ class FilmListFragment : Fragment() {
                 progressBar.hide()
                 tryAgainContainer.show()
                 noUsersTextView.show()
-                fragmentFilmList.snack(R.string.errorLoading.toString(),
+                fragmentFilmList.snack(
+                    R.string.errorLoading.toString(),
                     R.string.reloadError.toString(),
-                    viewModel.getFilms())
+                    viewModel.getServerFilms()
+                )
 
 /*                Snackbar.make(fragmentFilmList, R.string.errorLoading, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.reloadError) { viewModel.getFilms() }
