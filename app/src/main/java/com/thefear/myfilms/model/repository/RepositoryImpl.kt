@@ -45,7 +45,7 @@ class RepositoryImpl : Repository {
                     cover = it.poster?.url.toString(),
                     title = it.name.toString(),
                     year = it.year.toString(),
-                    rate = it.rating.toString(),
+                    rate = it.rating?.kp.toString(),
                     style = Genre.MOVE,
                     details = it.description.toString()
                 )

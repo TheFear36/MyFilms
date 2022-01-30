@@ -11,4 +11,5 @@
     <string name="no_films">Нет фильмов</string>
     <string name="todo">TODO</string>
     <string name="image_cover_desc">Cover</string>
+    <string name="connection_on">Вы подключились к сети</string>
 </resources>
