@@ -1,8 +1,8 @@
 package com.thefear.myfilms.model.repository
 
 enum class Genre {
-    COMEDY,
-    ACTION,
+    TV_SERIES,
+    MOVE,
     CARTOON,
-    THRILLER
+    ANIME
 }

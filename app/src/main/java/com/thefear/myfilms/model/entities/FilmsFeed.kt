@@ -13,7 +13,6 @@ class FilmsFeed {
         STYLES.shuffle()
         films = (1..10).map {
             Film(
-                id = it,
                 title = faker.name().name(),
                 year = faker.number().numberBetween(1890L, 2022L).toString(),
                 rate = faker.number().randomDouble(1, 1, 5).toString(),
@@ -44,10 +43,10 @@ class FilmsFeed {
         )
 
         private val STYLES = mutableListOf(
-            Genre.ACTION,
+            Genre.MOVE,
             Genre.CARTOON,
-            Genre.COMEDY,
-            Genre.THRILLER,
+            Genre.TV_SERIES,
+            Genre.ANIME,
         )
     }
 
