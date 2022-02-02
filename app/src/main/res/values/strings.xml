@@ -12,4 +12,5 @@
     <string name="todo">TODO</string>
     <string name="image_cover_desc">Cover</string>
     <string name="connection_on">Вы подключились к сети</string>
+    <string name="category_title">Категория</string>
 </resources>

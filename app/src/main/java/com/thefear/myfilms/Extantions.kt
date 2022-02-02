@@ -2,7 +2,6 @@ package com.thefear.myfilms
 
 import android.content.Context
 import android.view.View
-import android.view.ViewParent
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,6 +25,6 @@ fun View.snack(text: String, actionText: String, action: Unit){
         .show()
 }
 
-fun Context.toast(text: String){
+fun Context.toast(text: Int){
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }

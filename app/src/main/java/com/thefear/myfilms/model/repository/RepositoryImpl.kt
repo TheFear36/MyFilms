@@ -1,8 +1,8 @@
 package com.thefear.myfilms.model.repository
 
-import com.thefear.myfilms.model.FilmsLoader
 import com.thefear.myfilms.model.entities.Film
 import com.thefear.myfilms.model.entities.FilmsFeed
+import com.thefear.myfilms.model.repository.forretrofit.MoveRepo
 
 class RepositoryImpl : Repository {
 
@@ -36,7 +36,28 @@ class RepositoryImpl : Repository {
 
 
     override fun getFilmsFromServer(): MutableList<Film> {
-        val dto = FilmsLoader.loadFilms()
+        //val dto = FilmsLoader.loadFilms()
+/*        var dto: PageDTO? = null
+        val dtoData = MoveRepo.adapter.getMove("rating.kp", "6-10",
+            "typeNumber", 1,
+            "year", "2020-2022",
+            "ZQQ8GMN-TN54SGK-NB3MKEC-ZKB8V06")
+            .enqueue(object : Callback<PageDTO>{
+            override fun onResponse(call: Call<PageDTO>, response: Response<PageDTO>) {
+                if (response.isSuccessful) {
+                    dto = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<PageDTO>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })*/
+
+        val dto = MoveRepo.adapter.getMove("rating.kp", "6-10",
+            "typeNumber", 1,
+            "year", "2020-2022",
+            "ZQQ8GMN-TN54SGK-NB3MKEC-ZKB8V06").execute().body()
         val data: MutableList<Film> = mutableListOf()
 
         dto?.docs?.forEach {
