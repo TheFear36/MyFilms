@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private var myBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            toast("Вы подключены к сети")
+            toast(R.string.connection_on)
         }
     }
 }

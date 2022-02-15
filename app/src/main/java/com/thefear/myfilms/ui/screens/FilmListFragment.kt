@@ -49,7 +49,7 @@ class FilmListFragment : Fragment() {
         when (appState) {
             is AppState.Success -> {
                 val filmsData = appState.filmsData
-                recyclerView.show()
+                itemRecyclerView.show()
                 progressBar.hide()
                 tryAgainContainer.hide()
                 noUsersTextView.hide()
@@ -71,13 +71,13 @@ class FilmListFragment : Fragment() {
                     }
 
                 })
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager =
+                itemRecyclerView.adapter = adapter
+                itemRecyclerView.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 setData(filmsData)
             }
             is AppState.Error -> {
-                recyclerView.hide()
+                itemRecyclerView.hide()
                 progressBar.hide()
                 tryAgainContainer.show()
                 noUsersTextView.show()
@@ -92,7 +92,7 @@ class FilmListFragment : Fragment() {
                     .show()*/
             }
             is AppState.Loading -> {
-                recyclerView.hide()
+                itemRecyclerView.hide()
                 progressBar.show()
                 tryAgainContainer.hide()
                 noUsersTextView.hide()
