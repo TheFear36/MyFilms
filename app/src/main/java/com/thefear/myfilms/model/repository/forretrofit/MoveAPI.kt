@@ -1,10 +1,8 @@
 package com.thefear.myfilms.model.repository.forretrofit
 
-import com.thefear.myfilms.model.repository.entitiesDTO.MoveDTO
 import com.thefear.myfilms.model.repository.entitiesDTO.PageDTO
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoveAPI {

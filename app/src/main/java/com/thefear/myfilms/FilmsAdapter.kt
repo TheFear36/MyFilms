@@ -31,7 +31,6 @@ class FilmsAdapter(private val itemClickListener: FilmListFragment.OnItemViewCli
             titleFilm.text = film.title
             filmYear.text = film.year
             filmRate.text = film.rate
-            styleFilm.text = film.style.toString()
             Glide.with(coverImageView.context)
                 .load(film.cover)
                 .placeholder(R.drawable.ic_default_film)
