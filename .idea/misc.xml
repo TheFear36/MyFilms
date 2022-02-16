@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/drawable/ic_rate.xml" value="0.3828125" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_favorite.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_film_decription.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_film_details.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_film_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_film_list.xml" value="0.15149558855175382" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_films_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/fragment_films_grid.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/item_favorite_move.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/item_film.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/item_film_feed.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/layout/main_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/squan/AndroidStudioProjects/MyFilms/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

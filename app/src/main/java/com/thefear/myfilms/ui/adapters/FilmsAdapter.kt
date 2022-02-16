@@ -1,10 +1,11 @@
-package com.thefear.myfilms
+package com.thefear.myfilms.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.thefear.myfilms.R
 import com.thefear.myfilms.databinding.ItemFilmBinding
 import com.thefear.myfilms.model.entities.Film
 import com.thefear.myfilms.ui.screens.FilmListFragment

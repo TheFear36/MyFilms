@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/favorite_poster"
+        android:layout_width="@dimen/image"
+        android:layout_height="@dimen/image"
+        android:layout_marginTop="@dimen/standart_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_default_film" />
+
+    <TextView
+        android:id="@+id/favorite_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_film"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/favorite_poster"
+        app:layout_constraintTop_toTopOf="@+id/favorite_poster" />
+
+    <TextView
+        android:id="@+id/favorite_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/max_margin"
+        android:text="@string/year"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_title"
+        app:layout_constraintStart_toEndOf="@+id/favorite_poster"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_title" />
+
+    <TextView
+        android:id="@+id/favorite_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/max_margin"
+        android:layout_marginEnd="@dimen/standart_margin"
+        android:text="@string/rate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/favorite_title"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_year" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

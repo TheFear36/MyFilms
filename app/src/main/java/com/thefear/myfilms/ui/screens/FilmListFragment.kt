@@ -13,6 +13,7 @@ import com.thefear.myfilms.databinding.FragmentFilmListBinding
 import com.thefear.myfilms.model.AppState
 import com.thefear.myfilms.model.entities.Film
 import com.thefear.myfilms.ui.FilmsListViewModel
+import com.thefear.myfilms.ui.adapters.FilmsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
@@ -32,7 +33,7 @@ class FilmListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
         val observer = Observer<AppState> { renderData(it) }
@@ -41,6 +42,28 @@ class FilmListFragment : Fragment() {
         viewModel.getLiveDataCartoon().observe(viewLifecycleOwner, observer)
         viewModel.getLiveDataAnime().observe(viewLifecycleOwner, observer)
         viewModel.getServerFilms()
+
+        listToolbar.setOnMenuItemClickListener {
+            val manager = activity?.supportFragmentManager
+            when(it.itemId) {
+                R.id.action_favorite -> {
+                    manager?.let {
+                        manager.beginTransaction()
+                            .replace(R.id.fragmentContainer, FavoriteFragment.newInstance())
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                    true
+                }
+                R.id.action_see_later -> {
+                    true
+                }
+                R.id.action_settings -> {
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onDestroyView() {
