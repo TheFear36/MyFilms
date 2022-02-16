@@ -8,41 +8,23 @@ import com.thefear.myfilms.model.repository.Repository
 
 class FilmsListViewModel(private val repository: Repository) : ViewModel() {
 
-    private val liveData = MutableLiveData<AppState>()
+    private val liveDataMove = MutableLiveData<AppState>()
+    private val liveDataTV = MutableLiveData<AppState>()
+    private val liveDataCartoon = MutableLiveData<AppState>()
+    private val liveDataAnime = MutableLiveData<AppState>()
 
-    fun getLiveData(): LiveData<AppState> = liveData
-
-    //fun getFilms() = getFilmsFromMySource()
-
-    //TODO
-/*    fun getFilmsFromMySource(genre: Genre) = getFilmsFromGenre(genre)
-
-    fun getComedy() = getFilmsFromGenre(Genre.COMEDY)
-    fun getAction() = getFilmsFromGenre(Genre.ACTION)
-    fun getCartoon() = getFilmsFromGenre(Genre.CARTOON)
-    fun getThriller() = getFilmsFromGenre(Genre.THRILLER)
-
-    private fun getFilmsFromGenre(genre: Genre) {
-        liveData.value = AppState.Loading
-        Thread {
-            sleep(1000)
-            liveData.postValue(AppState.Success(repository.getMyFilmsFromGenre(genre)))
-        }.start()
-    }*/
-/*
-    private fun getFilmsFromMySource() {
-        liveData.value = AppState.Loading
-        Thread {
-            sleep(1000)
-            liveData.postValue(AppState.Success(repository.getMyFilms()))
-        }.start()
-    }*/
+    fun getLiveDataMove(): LiveData<AppState> = liveDataMove
+    fun getLiveDataTV(): LiveData<AppState> = liveDataTV
+    fun getLiveDataCartoon(): LiveData<AppState> = liveDataCartoon
+    fun getLiveDataAnime(): LiveData<AppState> = liveDataAnime
 
     fun getServerFilms() {
-        liveData.value = AppState.Loading
+        liveDataMove.value = AppState.Loading
         Thread {
-            liveData.postValue(AppState.Success(repository.getFilmsFromServer()))
+            liveDataMove.postValue(AppState.SuccessMove(repository.getMoveFromServer()))
+            liveDataMove.postValue(AppState.SuccessTV(repository.getTvSeriesFromServer()))
+            liveDataMove.postValue(AppState.SuccessCartoon(repository.getCartoonFromServer()))
+            liveDataMove.postValue(AppState.SuccessAnime(repository.getAnimeFromServer()))
         }.start()
     }
-
 }

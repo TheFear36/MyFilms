@@ -4,4 +4,8 @@
     <dimen name="text_title">18sp</dimen>
     <dimen name="little_text_size">10sp</dimen>
     <dimen name="details_image_size">320dp</dimen>
+    <dimen name="standart_margin">24dp</dimen>
+    <dimen name="max_margin">32dp</dimen>
+    <dimen name="low_margin">8dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
 </resources>

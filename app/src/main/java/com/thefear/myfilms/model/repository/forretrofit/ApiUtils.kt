@@ -11,14 +11,7 @@ object ApiUtils {
         httpClient.connectTimeout(10, TimeUnit.SECONDS)
         httpClient.readTimeout(10, TimeUnit.SECONDS)
         httpClient.writeTimeout(10, TimeUnit.SECONDS)
-/*        httpClient.addInterceptor { chain ->
-            val original = chain.request()
-            val request = original.newBuilder()
-                .method(original.method(), original.body())
-                .build()
 
-            chain.proceed(request)
-        }*/
         return httpClient.build()
     }
 }
