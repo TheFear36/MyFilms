@@ -1,4 +1,4 @@
-package com.thefear.myfilms.ui
+package com.thefear.myfilms.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

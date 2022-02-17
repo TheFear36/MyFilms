@@ -8,4 +8,6 @@ interface Repository {
     fun getTvSeriesFromServer(): MutableList<Film>
     fun getCartoonFromServer(): MutableList<Film>
     fun getAnimeFromServer(): MutableList<Film>
+    fun saveEntity(film: Film)
+    fun getAllHistory(): MutableList<Film>
 }

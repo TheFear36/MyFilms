@@ -12,7 +12,7 @@ import com.thefear.myfilms.*
 import com.thefear.myfilms.databinding.FragmentFilmListBinding
 import com.thefear.myfilms.model.AppState
 import com.thefear.myfilms.model.entities.Film
-import com.thefear.myfilms.ui.FilmsListViewModel
+import com.thefear.myfilms.ui.viewmodels.FilmsListViewModel
 import com.thefear.myfilms.ui.adapters.FilmsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
