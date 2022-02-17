@@ -8,4 +8,5 @@
     <dimen name="max_margin">32dp</dimen>
     <dimen name="low_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
+    <dimen name="text_size">39dp</dimen>
 </resources>

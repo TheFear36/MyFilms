@@ -14,6 +14,7 @@ import com.thefear.myfilms.model.AppState
 import com.thefear.myfilms.model.entities.Film
 import com.thefear.myfilms.ui.viewmodels.FilmsListViewModel
 import com.thefear.myfilms.ui.adapters.FilmsAdapter
+import com.thefear.myfilms.ui.screens.content_provider.ContentProviderFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
@@ -45,17 +46,13 @@ class FilmListFragment : Fragment() {
 
         listToolbar.setOnMenuItemClickListener {
             val manager = activity?.supportFragmentManager
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.action_favorite -> {
-                    manager?.let {
-                        manager.beginTransaction()
-                            .replace(R.id.fragmentContainer, FavoriteFragment.newInstance())
-                            .addToBackStack(null)
-                            .commit()
-                    }
+                    openFragment(FavoriteFragment.newInstance())
                     true
                 }
                 R.id.action_see_later -> {
+                    openFragment(ContentProviderFragment.newInstance())
                     true
                 }
                 R.id.action_settings -> {
@@ -69,6 +66,16 @@ class FilmListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val manager = activity?.supportFragmentManager
+        manager?.let {
+            manager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun renderData(appState: AppState) = with(binding) {

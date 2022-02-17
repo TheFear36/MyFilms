@@ -17,4 +17,5 @@
     <string name="see_later">Посмотреть позже</string>
     <string name="settings">Настройки</string>
     <string name="Menu">Меню</string>
+    <string name="need_permission_to_read_contacts">Необходимо разрешение на чтение контактов</string>
 </resources>
