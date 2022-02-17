@@ -9,11 +9,14 @@ import com.bumptech.glide.Glide
 import com.thefear.myfilms.R
 import com.thefear.myfilms.databinding.FragmentFilmDetailsBinding
 import com.thefear.myfilms.model.entities.Film
+import com.thefear.myfilms.ui.viewmodels.DetailsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailsFragment : Fragment() {
 
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: DetailsViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -38,6 +41,7 @@ class FilmDetailsFragment : Fragment() {
                     .placeholder(R.drawable.ic_default_film)
                     .error(R.drawable.ic_default_film)
                     .into(coverImageView)
+                viewModel.saveEntity(it)
             }
         }
     }

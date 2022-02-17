@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thefear.myfilms.*
 import com.thefear.myfilms.databinding.FragmentFilmListBinding
 import com.thefear.myfilms.model.AppState
 import com.thefear.myfilms.model.entities.Film
-import com.thefear.myfilms.ui.FilmsListViewModel
+import com.thefear.myfilms.ui.viewmodels.FilmsListViewModel
+import com.thefear.myfilms.ui.adapters.FilmsAdapter
+import com.thefear.myfilms.ui.screens.content_provider.ContentProviderFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
@@ -31,13 +34,33 @@ class FilmListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
         val observer = Observer<AppState> { renderData(it) }
-        viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        //viewModel.getFilms()
+        viewModel.getLiveDataMove().observe(viewLifecycleOwner, observer)
+        viewModel.getLiveDataTV().observe(viewLifecycleOwner, observer)
+        viewModel.getLiveDataCartoon().observe(viewLifecycleOwner, observer)
+        viewModel.getLiveDataAnime().observe(viewLifecycleOwner, observer)
         viewModel.getServerFilms()
+
+        listToolbar.setOnMenuItemClickListener {
+            val manager = activity?.supportFragmentManager
+            when (it.itemId) {
+                R.id.action_favorite -> {
+                    openFragment(FavoriteFragment.newInstance())
+                    true
+                }
+                R.id.action_see_later -> {
+                    openFragment(ContentProviderFragment.newInstance())
+                    true
+                }
+                R.id.action_settings -> {
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -45,64 +68,86 @@ class FilmListFragment : Fragment() {
         _binding = null
     }
 
+    private fun openFragment(fragment: Fragment) {
+        val manager = activity?.supportFragmentManager
+        manager?.let {
+            manager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
-            is AppState.Success -> {
+            is AppState.SuccessMove -> {
                 val filmsData = appState.filmsData
-                itemRecyclerView.show()
-                progressBar.hide()
-                tryAgainContainer.hide()
+                updateRecycler(moveRecyclerView, filmsData)
+                progressBarMove.hide()
+                tryAgainContainerMove.hide()
                 noUsersTextView.hide()
-                adapter = FilmsAdapter(object : OnItemViewClickListener {
-                    override fun onItemViewClick(film: Film) {
-                        val manager = activity?.supportFragmentManager
-                        manager?.let { _ ->
-                            val bundle = Bundle().apply {
-                                putParcelable(FilmDetailsFragment.FILM_EXTRA, film)
-                            }
-                            manager.beginTransaction()
-                                .replace(
-                                    R.id.fragmentContainer,
-                                    FilmDetailsFragment.newInstance(bundle)
-                                )
-                                .addToBackStack(null)
-                                .commit()
-                        }
-                    }
-
-                })
-                itemRecyclerView.adapter = adapter
-                itemRecyclerView.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                setData(filmsData)
+            }
+            is AppState.SuccessTV -> {
+                val filmsData = appState.filmsData
+                updateRecycler(tvSeriesRecyclerView, filmsData)
+            }
+            is AppState.SuccessCartoon -> {
+                val filmsData = appState.filmsData
+                updateRecycler(cartoonRecyclerView, filmsData)
+            }
+            is AppState.SuccessAnime -> {
+                val filmsData = appState.filmsData
+                updateRecycler(animeRecyclerView, filmsData)
             }
             is AppState.Error -> {
-                itemRecyclerView.hide()
-                progressBar.hide()
-                tryAgainContainer.show()
+                moveRecyclerView.hide()
+                progressBarMove.hide()
+                tryAgainContainerMove.show()
                 noUsersTextView.show()
                 fragmentFilmList.snack(
                     R.string.errorLoading.toString(),
                     R.string.reloadError.toString(),
                     viewModel.getServerFilms()
                 )
-
-/*                Snackbar.make(fragmentFilmList, R.string.errorLoading, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.reloadError) { viewModel.getFilms() }
-                    .show()*/
             }
             is AppState.Loading -> {
-                itemRecyclerView.hide()
-                progressBar.show()
-                tryAgainContainer.hide()
+                moveRecyclerView.hide()
+                progressBarMove.show()
+                tryAgainContainerMove.hide()
                 noUsersTextView.hide()
             }
         }
 
     }
 
+    private fun updateRecycler(view: RecyclerView, filmsData: MutableList<Film>) = with(binding) {
+        view.show()
+        adapter = FilmsAdapter(object : OnItemViewClickListener {
+            override fun onItemViewClick(film: Film) {
+                val manager = activity?.supportFragmentManager
+                manager?.let { _ ->
+                    val bundle = Bundle().apply {
+                        putParcelable(FilmDetailsFragment.FILM_EXTRA, film)
+                    }
+                    manager.beginTransaction()
+                        .replace(
+                            R.id.fragmentContainer,
+                            FilmDetailsFragment.newInstance(bundle)
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+
+        })
+        view.adapter = adapter
+        view.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        setData(filmsData)
+    }
+
     private fun setData(filmsData: MutableList<Film>) = with(binding) {
-        viewModel.getLiveData()
+        viewModel.getLiveDataMove()
         adapter?.films = filmsData
     }
 

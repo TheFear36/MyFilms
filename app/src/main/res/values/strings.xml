@@ -13,4 +13,9 @@
     <string name="image_cover_desc">Cover</string>
     <string name="connection_on">Вы подключились к сети</string>
     <string name="category_title">Категория</string>
+    <string name="favorite">Избранное</string>
+    <string name="see_later">Посмотреть позже</string>
+    <string name="settings">Настройки</string>
+    <string name="Menu">Меню</string>
+    <string name="need_permission_to_read_contacts">Необходимо разрешение на чтение контактов</string>
 </resources>

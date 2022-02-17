@@ -1,61 +1,58 @@
 package com.thefear.myfilms.model.repository
 
+import com.thefear.myfilms.model.database.Database
+import com.thefear.myfilms.model.database.RequestHistory
 import com.thefear.myfilms.model.entities.Film
-import com.thefear.myfilms.model.entities.FilmsFeed
 import com.thefear.myfilms.model.repository.forretrofit.MoveRepo
 
 class RepositoryImpl : Repository {
 
-    private val filmsFeed: FilmsFeed = FilmsFeed()
-    private val films = filmsFeed.getFilms()
+    override fun getMoveFromServer(): MutableList<Film> = getMoveToType(1)
 
-    override fun getMyFilms(): MutableList<Film> {
-        return filmsFeed.getFilms()
+    override fun getTvSeriesFromServer(): MutableList<Film> = getMoveToType(2)
+
+    override fun getCartoonFromServer(): MutableList<Film> = getMoveToType(3)
+
+    override fun getAnimeFromServer(): MutableList<Film> = getMoveToType(4)
+
+    override fun saveEntity(film: Film) {
+        Database.db.historyDao().insert(convertFilmToEntity(film))
     }
 
-    override fun getMyFilmsFromGenre(genre: Genre): MutableList<Film> {
-        val tvSeries = mutableListOf<Film>()
-        val move = mutableListOf<Film>()
-        val cartoon = mutableListOf<Film>()
-        val anime = mutableListOf<Film>()
-        for (i in films) {
-            when (i.style) {
-                Genre.TV_SERIES -> tvSeries.add(i)
-                Genre.MOVE -> move.add(i)
-                Genre.CARTOON -> cartoon.add(i)
-                Genre.ANIME -> anime.add(i)
-            }
-        }
-        return when (genre) {
-            Genre.TV_SERIES -> tvSeries
-            Genre.MOVE -> move
-            Genre.CARTOON -> cartoon
-            Genre.ANIME -> anime
-        }
+    override fun getAllHistory(): MutableList<Film> {
+        return convertRequestHistoryToFilms(Database.db.historyDao().all())
     }
 
+    private fun convertFilmToEntity(film: Film) : RequestHistory {
+        return RequestHistory(
+            0, film.cover,
+            film.title,
+            film.year,
+            film.rate
+        )
 
-    override fun getFilmsFromServer(): MutableList<Film> {
-        //val dto = FilmsLoader.loadFilms()
-/*        var dto: PageDTO? = null
-        val dtoData = MoveRepo.adapter.getMove("rating.kp", "6-10",
-            "typeNumber", 1,
-            "year", "2020-2022",
-            "ZQQ8GMN-TN54SGK-NB3MKEC-ZKB8V06")
-            .enqueue(object : Callback<PageDTO>{
-            override fun onResponse(call: Call<PageDTO>, response: Response<PageDTO>) {
-                if (response.isSuccessful) {
-                    dto = response.body()
-                }
-            }
+    }
 
-            override fun onFailure(call: Call<PageDTO>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })*/
+    private fun convertRequestHistoryToFilms(entityList: List<RequestHistory>): MutableList<Film> {
+        val data: MutableList<Film> = mutableListOf()
+        entityList.forEach {
+            data.add(
+                Film(
+                    cover = it.poster,
+                    title = it.title,
+                    year = it.year,
+                    rate = it.rate,
+                    details = ""
+                )
+            )
+        }
+        return data
+    }
+
+    private fun getMoveToType(type: Int) : MutableList<Film> {
 
         val dto = MoveRepo.adapter.getMove("rating.kp", "6-10",
-            "typeNumber", 1,
+            "typeNumber", type,
             "year", "2020-2022",
             "ZQQ8GMN-TN54SGK-NB3MKEC-ZKB8V06").execute().body()
         val data: MutableList<Film> = mutableListOf()
@@ -67,13 +64,10 @@ class RepositoryImpl : Repository {
                     title = it.name.toString(),
                     year = it.year.toString(),
                     rate = it.rating?.kp.toString(),
-                    style = Genre.MOVE,
                     details = it.description.toString()
                 )
             )
         }
-
-
 
         return data
     }
